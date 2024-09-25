@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <style>
+        /* CSS for the entire webpage */
+        body {
+            background-image: url('To-Do App.jpg'); /* Set background image */
+            background-size: cover; /* Cover the entire screen */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container that holds the to-do list and completed tasks */
+        .container {
+            max-width: 1500px;
+            margin: auto;
+            padding: 75px;
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+            border-radius: 10px;
+        }
+
+        /* Heading styles */
+        h1 {
+            font-size: 48px;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Styles for unordered lists */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Style for completed tasks */
+        .completed {
+            text-decoration: line-through;
+            color: grey;
+            font-size: 8px; /* Set font size to 8px for completed tasks */
+        }
+
+        /* Button styles for completing/removing tasks */
+        .task-buttons {
+            margin-left: 15px;
+        }
+
+        /* Div container for to-do list and completed tasks */
+        .task-column {
+            width: 45%;
+        }
+
+        /* Input and button styles */
+        input[type="text"], input[type="datetime-local"], button {
+            font-size: 16px;
+            padding: 8px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main container for the to-do list and completed tasks -->
+    <div class="container">
+        <div class="task-column">
+            <h1>TO-DO LIST:</h1>
+            <!-- Input field for adding tasks -->
+            <input type="text" id="taskInput" placeholder="Add a new task">
+            <!-- Input field for selecting the date/time for the task -->
+            <input type="datetime-local" id="taskDate">
+            <!-- Button to add the task -->
+            <button id="addTaskBtn">Add Task</button>
+            <!-- Unordered list where tasks will be added -->
+            <ul id="taskList"></ul>
+        </div>
+        <div class="task-column">
+            <h1>COMPLETED TASKS:</h1>
+            <!-- Unordered list where completed tasks will be displayed -->
+            <ul id="completedTasksList"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Add task button event listener
+        document.getElementById('addTaskBtn').addEventListener('click', addTask);
+
+        // Function to add a task to the to-do list
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskDate = document.getElementById('taskDate');
+            const taskList = document.getElementById('taskList');
+
+            // Validate that task input is not empty
+            if (taskInput.value === '') {
+                alert('Please enter a task');
+                return;
+            }
+
+            // Create a new task item in the list
+            const taskItem = document.createElement('li');
+            taskItem.innerHTML = `
+                <span>${taskInput.value} - ${new Date(taskDate.value).toLocaleString()}</span>
+                <button onclick="completeTask(this)" class="task-buttons">✔️</button>
+                <button onclick="removeTask(this)" class="task-buttons">❌</button>
+            `;
+            taskItem.dataset.taskName = taskInput.value; // Store the task name
+            taskList.appendChild(taskItem);
+
+            // Clear the input fields after adding a task
+            taskInput.value = '';
+            taskDate.value = '';
+        }
+
+        // Function to mark a task as completed
+        function completeTask(button) {
+            const taskItem = button.parentElement;
+            const completedTasksList = document.getElementById('completedTasksList');
+
+            // Create a new list item for completed tasks
+            const completedTaskItem = document.createElement('li');
+            completedTaskItem.classList.add('completed'); // Add class for completed tasks
+            completedTaskItem.innerHTML = `
+                <span>${taskItem.dataset.taskName} - Completed</span>
+                <button onclick="removeTask(this)" class="task-buttons">❌</button>
+            `;
+
+            // Move the task to the completed tasks list if not already completed
+            if (!taskItem.classList.contains('completed')) {
+                completedTasksList.appendChild(completedTaskItem);
+                taskItem.remove(); // Remove from the active tasks list
+            }
+        }
+
+        // Function to remove a task from the list
+        function removeTask(button) {
+            const taskItem = button.parentElement;
+            taskItem.remove(); // Remove the task from the DOM
+        }
+    </script>
+</body>
+</html>

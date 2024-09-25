@@ -1,0 +1,103 @@
+/* Basic styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('tic tac toe.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Slight transparency */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Flexbox layout for dropdowns and grid */
+.game-controls-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px; /* Space between the grid and controls */
+}
+
+/* Styling for dropdown controls */
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+select {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 150px;
+}
+
+select:hover {
+    background-color: #333;
+}
+
+/* Game Board Grid Layout */
+#gameBoard {
+    display: grid;
+    gap: 10px;
+}
+
+.board.grid-3 {
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px); /* Equal height and width for the grid */
+}
+
+.board.grid-4 {
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+}
+
+.board.grid-5 {
+    grid-template-columns: repeat(5, 100px);
+    grid-template-rows: repeat(5, 100px);
+}
+
+/* Styling for grid cells */
+.cell {
+    background-color: #fff;
+    border: 2px solid #333;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+#gameStatus {
+    margin-top: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#resetButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+}
